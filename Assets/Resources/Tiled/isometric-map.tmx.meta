@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: c0cb4f5332289d7439f8641f2961f0d9
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 1fa25d03934ea624a82bf2fcee6f0873, type: 3}
+  missingFiles:
+  - ../Sprites/tile-rivets-tiled.png
+  - test-wall-tiled.tsx
+  errors:
+  - 'Missing texture asset: ../Sprites/tile-rivets-tiled.png'
+  - 'Missing tileset asset: test-wall-tiled.tsx'
+  warnings:
+  - Tileset 'tile-rivets-tiled' is an embedded tileset. Exported tilesets are preferred.
+  missingSortingLayers: []
+  missingLayers: []
+  missingTags: []
+  importerVersion: 26
+  pixelsPerUnit: 100
+  edgesPerEllipse: 32
+  numberOfObjectsImported: 3
+  tilesAsObjects: 0
+  sortingMode: 0
+  isIsometric: 1
+  customImporterClassName: 
+  internalTilesets:
+  - {instanceID: 0}
