@@ -16,6 +16,10 @@ namespace CatStory
         private GameManager _gameManager;
 
         [SerializeField]
+        private ParticleSystem _dust;
+
+
+        [SerializeField]
         private InventoryController _inventory;
 
         [Header("Player Refs")]
@@ -301,7 +305,11 @@ namespace CatStory
 
             }
 
-            if (touchingDirections.IsGrounded) currentJumps = 1;
+            if (touchingDirections.IsGrounded) 
+            {
+                _dust.Play();
+                currentJumps = 1;
+            } 
             if (currentJumps == maxJumps) return;
 
             SetFacingDirection(moveInput);
