@@ -241,7 +241,7 @@ namespace CatStory
 
         private void Update()
         {
-
+            _playerRB.WakeUp();
             //Debug.Log(_playerRB.velocity.y);
         }
 
