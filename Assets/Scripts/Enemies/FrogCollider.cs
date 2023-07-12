@@ -65,12 +65,29 @@ namespace CatStory
         {
             //Vector3 direction = (target - _frog.transform.position).normalized;
             //_frog._frogRB.velocity = direction * _frog.frogSpeed * _frog.jumpDistance * Time.deltaTime; 
-                       
-            _frog._frogRB.AddForce(new Vector2(-_frog.jumpDistance, _frog.jumpForce), ForceMode2D.Impulse);
-
             
+            
+            if (!_frog.IsFacingRight)
+            {
+                _frog._frogRB.velocity = new Vector2(-1f * _frog.frogSpeed, _frog._frogRB.velocity.y);
+                _frog._frogRB.AddForce(Vector2.up * _frog.jumpForce, ForceMode2D.Impulse);
+
+                Debug.Log("frog jumps to the left");
+            }
+            else
+            {
+                _frog._frogRB.velocity = new Vector2(1f * _frog.frogSpeed, _frog._frogRB.velocity.y);
+                _frog._frogRB.AddForce(Vector2.up * _frog.jumpForce, ForceMode2D.Impulse);
+
+                Debug.Log("frog jumps to the right");
+            }
+           
         }
 
+        private void FrogStop()
+        {
+            _frog._frogRB.velocity = new Vector2(1f * _frog.frogSpeed, _frog._frogRB.velocity.y);
+        }
 
         
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5342936369393843655}
   - component: {fileID: 5342936369393843652}
   - component: {fileID: 61585468647419325}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: PowerMeowSoundWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerMeowSoundWave: {fileID: 5342936369393843652}
+  _sprite: {fileID: 0}
   _powerMeowSound: {fileID: 5342936369393843651}
   _soundWaveSpeed: 2000
   _player: {fileID: 6161081337714729350, guid: ebeac170e2492de4ba00552db462caad, type: 3}

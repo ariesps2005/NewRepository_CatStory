@@ -87,6 +87,18 @@ namespace CatStory
             cinemachineCam.Follow = _player.transform;
         }
 
+        public void StopCameraY()
+        {
+            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_DeadZoneHeight = 1.42f;
+            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_SoftZoneHeight = 1.42f;
+        }
+
+        public void ReturnCameraY()
+        {
+            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_DeadZoneHeight = 0f;
+            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_SoftZoneHeight = 0.8f;
+        }
+    
 
 
 

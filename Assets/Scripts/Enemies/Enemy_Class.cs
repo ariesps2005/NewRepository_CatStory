@@ -17,7 +17,7 @@ namespace CatStory
         public SpriteRenderer _playerSprite;
 
         public SpriteRenderer _enemySprite;
-                        
+                                       
         public float _damagePlayerTime = 0.025f;
 
         public float _damageEnemyTime = 0.025f;
@@ -86,9 +86,9 @@ namespace CatStory
             //    StartCoroutine(StopBlinkingPlayerSprite());
             //}
 
-            if (collision.GetComponent<PowerMeowSoundWave>()) //damage if shot with PowerMeow
+            if (collision.GetComponent<PowerMeowSoundWave>() != null) //damage if shot with PowerMeow
             {
-
+                
                 if (enemyLives > 0)
                 {
                     enemyLives -= 1;
@@ -133,24 +133,24 @@ namespace CatStory
             }
 
         }
-              
 
-        //public IEnumerator DamagePlayer()
-        //{
 
-        //    var time = _damagePlayerTime;
-        //    while (time > 0 && !_player.isDead)
-        //    {
-        //        StartCoroutine(SetPlayerInvulnerability());
-        //        _playerSprite.enabled = !_playerSprite.enabled;
-        //        _playerSprite.color = new Color32(0xBC, 0x3A, 0x3A, 0xFF);
-        //        time -= Time.deltaTime;
-        //        yield return new WaitForSeconds(0.1f);
-        //    }
-        //    _playerSprite.color = Color.white;
-        //    _playerSprite.enabled = true;
+        public IEnumerator DamagePlayer()
+        {
 
-        //}
+            var time = _damagePlayerTime;
+            while (time > 0 && !_player.isDead)
+            {
+                StartCoroutine(SetPlayerInvulnerability());
+                _playerSprite.enabled = !_playerSprite.enabled;
+                _playerSprite.color = new Color32(0xBC, 0x3A, 0x3A, 0xFF);
+                time -= Time.deltaTime;
+                yield return new WaitForSeconds(0.1f);
+            }
+            _playerSprite.color = Color.white;
+            _playerSprite.enabled = true;
+
+        }
 
         public IEnumerator DamageEnemy()
         {

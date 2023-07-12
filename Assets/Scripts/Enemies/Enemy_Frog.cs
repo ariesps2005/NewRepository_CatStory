@@ -87,6 +87,42 @@ namespace CatStory
 
         }
 
+        public override void OnTriggerEnter2D(Collider2D collision)
+        {
+            base.OnTriggerEnter2D(collision);
+
+            if (collision.GetComponent<PlayerController>() && !isPlayerInvulnerable && !_player.isDead)
+            {
+                _frogAnim.SetTrigger("dead");
+                Destroy(gameObject, 0.5f);
+                FindObjectOfType<LifeManager>().Lives -= 2;
+
+                StartCoroutine(DamagePlayer());
+            }
+
+            if (collision.GetComponent<PowerMeowSoundWave>() && _powerMeow != null && !isPlayerInvulnerable && !_player.isDead)
+            {
+
+                Debug.Log("PowerMeow Shot");
+                if (enemyLives > 0)
+                {
+                    enemyLives -= 1;
+                    StartCoroutine(DamageEnemy());
+
+                    Debug.Log("Enemy is hit");
+                    
+                }
+
+
+                if (enemyLives == 0)
+                {
+                    Debug.Log("Enemy is dead");
+                    
+
+                }
+            }
+        }
+
 
     }
 
