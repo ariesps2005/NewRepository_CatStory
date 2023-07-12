@@ -6,15 +6,35 @@ namespace CatStory
 {
     public class FireflyPoint : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private PlayerController _player;
 
+        [SerializeField]
+        private InventoryController _inventory;
+
+
+        private void Awake()
+        {
+            _player = FindObjectOfType<PlayerController>();
+            //_inventory = FindObjectOfType<InventoryController>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void OnTriggerEnter2D(Collider2D collision)
         {
+
+            if (collision.GetComponent<PlayerController>() && _player != null)
+            {
+
+                Debug.Log(_player);
+                Debug.Log(_inventory);
+                _player._pickup5 = true;
+                _inventory._pickup5firefly.sprite = _inventory._revealedPickup5;
+                FindObjectOfType<FireflyManager>().AddFirefly();
+                FindObjectOfType<FireflyManager>().ShowPickup1HUD();
+
+                Destroy(gameObject);
+            }
+
+
 
         }
     }

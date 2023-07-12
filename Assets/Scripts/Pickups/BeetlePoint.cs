@@ -6,15 +6,35 @@ namespace CatStory
 {
     public class BeetlePoint : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        private PlayerController _player;
 
+        [SerializeField]
+        private InventoryController _inventory;
+
+
+        private void Awake()
+        {
+            _player = FindObjectOfType<PlayerController>();
+            //_inventory = FindObjectOfType<InventoryController>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void OnTriggerEnter2D(Collider2D collision)
         {
+
+            if (collision.GetComponent<PlayerController>() && _player != null)
+            {
+
+                Debug.Log(_player);
+                Debug.Log(_inventory);
+                _player._pickup4 = true;
+                _inventory._pickup4beetle.sprite = _inventory._revealedPickup4;
+                FindObjectOfType<BeetleManager>().AddBeetle();
+                FindObjectOfType<BeetleManager>().ShowPickup1HUD();
+
+                Destroy(gameObject);
+            }
+
+
 
         }
     }

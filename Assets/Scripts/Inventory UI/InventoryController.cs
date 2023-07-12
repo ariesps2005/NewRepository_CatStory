@@ -165,10 +165,10 @@ namespace CatStory
         public Image _pickup4beetle;
 
         [SerializeField]
-        public Sprite _hiddenPickup;
+        public Sprite _hiddenPickup4;
 
         [SerializeField]
-        public Sprite _revealedPickup;
+        public Sprite _revealedPickup4;
 
         [SerializeField]
         public Sprite _activeBeetleAbility;
@@ -180,22 +180,26 @@ namespace CatStory
         public TMP_Text _beetleText;
 
         //----------Fireflies-------
-        //[Space, SerializeField]
-        //public FirefliesManager _firefliesManager;
+        [Space, SerializeField]
+        public FireflyManager _firefliesManager;
 
-        //[SerializeField]
-        //private Image _pickup5firefly;
+        [SerializeField]
+        public Image _pickup5firefly;
 
-        //[SerializeField]
-        //private Sprite _hiddenPickup5;
+        [SerializeField]
+        private Sprite _hiddenPickup5;
 
-        //private Sprite _revealedPickup5;
+        [SerializeField]
+        public Sprite _revealedPickup5;
 
-        //[SerializeField]
-        //public TMP_Text _fireflyNameText;
+        [SerializeField]
+        public Sprite _activeFireflyAbility;
 
-        //[SerializeField]
-        //public TMP_Text _fireflyText;
+        [SerializeField]
+        public TMP_Text _fireflyNameText;
+
+        [SerializeField]
+        public TMP_Text _fireflyText;
 
 
         //------------Main------------
@@ -212,8 +216,8 @@ namespace CatStory
             _frankfurterText.text = _frankfurterManager.Frankfurters.ToString();
             _chickenText.text = _chickenManager.ChickenLegs.ToString();
             _cheeseText.text = _cheeseManager.Cheese.ToString();
-            //_beetleText.text = _beetlesManager.Beetle.ToString();
-            //_fireflyText.text = _firefliesManager.Firefly.ToString();
+            _beetleText.text = _beetlesManager.Beetles.ToString();
+            _fireflyText.text = _firefliesManager.Fireflies.ToString();
 
 
             if (_player._pickup1)
@@ -243,7 +247,23 @@ namespace CatStory
                 _cheeseNameText.enabled = false;
             }
 
+            if (_player._pickup4)
+            {
+                _beetleNameText.enabled = true;
+            }
+            else
+            {
+                _beetleNameText.enabled = false;
+            }
 
+            if (_player._pickup5)
+            {
+                _fireflyNameText.enabled = true;
+            }
+            else
+            {
+                _fireflyNameText.enabled = false;
+            }
 
 
         }

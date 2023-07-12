@@ -20,8 +20,8 @@ namespace CatStory
         private CheeseManager _cheeseController;
         [SerializeField]
         private BeetleManager _beetleController;
-        //[SerializeField]
-        //private FrankfurterManager _fireflyController;
+        [SerializeField]
+        private FireflyManager _fireflyController;
 
         [Header("Pickup Texts")]
         [Space, SerializeField]
@@ -35,8 +35,8 @@ namespace CatStory
         private TMP_Text _cheeseText;
         [SerializeField]
         private TMP_Text _beetleText;
-        //[SerializeField]
-        //private TMP_Text _fireflyText;
+        [SerializeField]
+        private TMP_Text _fireflyText;
 
         //------------UI Pop-Up Texts---------
 
@@ -80,8 +80,8 @@ namespace CatStory
             _frankfurterText.text = _frankfurterController.Frankfurters.ToString();
             _chickenText.text = _chickenController.ChickenLegs.ToString();
             _cheeseText.text = _cheeseController.Cheese.ToString();
-            //_beetleText.text = _beetleController.Beetle.ToString();
-            //_fireflyText.text = _fireflyController.Firefly.ToString();
+            _beetleText.text = _beetleController.Beetles.ToString();
+            _fireflyText.text = _fireflyController.Fireflies.ToString();
 
         }
     }

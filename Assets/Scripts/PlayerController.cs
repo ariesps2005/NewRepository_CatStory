@@ -122,8 +122,7 @@ namespace CatStory
         [Header("Abilities")] 
         public bool _hasPowerMeow = false;
         public bool _hasDoubleJump = false;
-
-        //public bool _hasJumpAttack = false;
+        public bool _hasJumpAttack = false;
         //public bool _hasDash = false;
         //public bool _hasTransform = false;
 
@@ -147,15 +146,15 @@ namespace CatStory
         public bool _pickup1;
         public bool _pickup2;
         public bool _pickup3;
-        //public bool _pickup4;
-        //public bool _pickup5;
+        public bool _pickup4;
+        public bool _pickup5;
 
         //-----------Public Pickup Abilities Bools---------
         [Header("Pickup Abilities")]
         public bool _frankAbilityIsReady;
         public bool _chickenAbilityIsReady;
         public bool _cheeseAbilityIsReady;
-        //public bool _beetleAbilityIsReady;
+        public bool _beetleAbilityIsReady;
         //public bool _fireflyAbilityIsReady;
 
         //-------------Movement Bool Properties------------
@@ -352,6 +351,12 @@ namespace CatStory
 
             }
             SetFacingDirection(moveInput);
+
+            if (context.started && _hasPowerMeow && _hasJumpAttack)//aerial PowerMeow attack
+            {
+                _playerAnim.SetTrigger(AnimationStrings.meowAttack);
+                Instantiate(_meowPrefab, _meowFirePoint.position, Quaternion.Euler(new Vector2(0, 0)));
+            }
             
         }
 
@@ -467,7 +472,7 @@ namespace CatStory
             //---------JumpAttack---------
             //if (collision.GetComponent<AbilityBox_3_JAttack>() && _abilityBox_3 != null && !isDead)
             //{
-            //   _hasBlock = true;
+            //   _hasJumpAttack = true;
 
             //_inventory._ability3.sprite = _inventory._revealedAbility3;
             //_inventory._ability3NameText.SetText("Jump Attack");
