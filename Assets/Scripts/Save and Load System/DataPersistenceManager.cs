@@ -10,7 +10,7 @@ namespace CatStory
 
         private GameData gameData;
 
-        private List<DataPersistenceManager> dataPersistenceObjects;
+        private List<IDataPersistence> dataPersistenceObjects;
 
         public static DataPersistenceManager instance { get; private set; }
 
