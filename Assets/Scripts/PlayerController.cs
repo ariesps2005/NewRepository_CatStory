@@ -32,8 +32,14 @@ namespace CatStory
         private float _playerSpeed;
         [SerializeField]
         public Animator _playerAnim;
+
+
         [SerializeField]
-        private SpriteRenderer _playerSprite;
+        public SpriteRenderer _playerSprite;
+
+        [SerializeField]
+        public SpriteRenderer _exampleSprite;
+
 
         [Header("Jump")]
         //[SerializeField]
@@ -240,7 +246,10 @@ namespace CatStory
         // ------------Main functions---------------
         private void Awake()//getting refs in Awake
         {
+
+            
             _gameManager = FindObjectOfType<GameManager>();
+            
             touchingDirections = GetComponent<TouchingDirections>();
             _treeFinishMarker = FindObjectOfType<TreeFinishMarker>();
             _savePoint = FindObjectOfType<SavePoint>();
@@ -248,7 +257,7 @@ namespace CatStory
 
             _abilityBox_1 = FindObjectOfType<AbilityBox_1_Meow>();
             _abilityBox_2 = FindObjectOfType<AbilityBox_2_DJump>();
-            //_abilityBox_3 = FindObjectOfType<AbilityBox_3_Block>();
+            //_abilityBox_3 = FindObjectOfType<AbilityBox_3_JumpAttack>();
             //_abilityBox_4 = FindObjectOfType<AbilityBox_4_Dash>();
             //_abilityBox_5 = FindObjectOfType<AbilityBox_5_Transform>();
         }
@@ -257,10 +266,12 @@ namespace CatStory
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
+            
         }
 
         private void Update()
         {
+            
 
             if (_isDashing)
             {
@@ -273,6 +284,8 @@ namespace CatStory
 
         private void FixedUpdate()
         {
+            
+
             if (_isDashing)
             {
                 return;
@@ -392,9 +405,13 @@ namespace CatStory
 
         public void OnMeowAttack(InputAction.CallbackContext context)
         {
+            
+
             if (context.performed)
             {
                 _powerMeowSound.Play();
+                _playerSprite.color = Color.blue;
+                _exampleSprite.color = Color.blue;
             }
             
             
@@ -452,7 +469,7 @@ namespace CatStory
             {
                 StartCoroutine(EnemyHarm());
 
-
+                Debug.Log("Cat is harmed");
             }
 
 
@@ -466,6 +483,8 @@ namespace CatStory
                 {
                     _lifeManager.Die();
                 }
+
+                
             }
 
             //-----------Getting Obstacle Damage------------
@@ -596,7 +615,6 @@ namespace CatStory
                 _isDashing = true;
                 float origGravity = _playerRB.gravityScale;
                 _playerRB.gravityScale = 0f;
-                //_playerRB.velocity = new Vector2(transform.position.x * dashingPower, 0f);
                 _playerRB.velocity = Vector2.left * dashingPower;
                 _dashTrail.emitting = true;
                 yield return new WaitForSeconds(dashingTime);
@@ -614,7 +632,6 @@ namespace CatStory
                 _isDashing = true;
                 float origGravity = _playerRB.gravityScale;
                 _playerRB.gravityScale = 0f;
-                //_playerRB.velocity = new Vector2(-transform.position.x * dashingPower, 0f);
                 _playerRB.velocity = Vector2.right * dashingPower;
                 _dashTrail.emitting = true;
                 yield return new WaitForSeconds(dashingTime);
@@ -640,19 +657,16 @@ namespace CatStory
         {
             if (!isDead)
             {
-                _lifeManager.Lives -= 1;
+                _lifeManager.LoseLives();
 
                 var time = _damageTime;
                 while (time > 0 && !isDead)
                 {
                     StartCoroutine(SetInvulnerability());
-                    _playerSprite.enabled = !_playerSprite.enabled;
-                    _playerSprite.color = new Color32(0xBC, 0x3A, 0x3A, 0xFF);
                     time -= Time.deltaTime;
                     yield return new WaitForSeconds(0.1f);
                 }
-                _playerSprite.color = Color.white;
-                _playerSprite.enabled = true;
+                
             }
 
 
@@ -664,21 +678,20 @@ namespace CatStory
         {
             if (!isDead)
             {
-                _lifeManager.Lives -= 1;
+                _lifeManager.LoseLives();
 
                 var time = _poisondamagePlayerTime;
                 while (time > 0)
                 {
 
                     StartCoroutine(SetInvulnerability());
-                    _playerSprite.enabled = !_playerSprite.enabled;
-                    _playerSprite.color = Color.green;
+                    
                     time -= Time.deltaTime;
                     yield return new WaitForSeconds(0.1f);
 
                 }
 
-                _playerSprite.enabled = true;
+               
                 Debug.Log("Poisoning");
 
             }
@@ -689,20 +702,18 @@ namespace CatStory
         //----------Getting Obstacle Harm-------
         private IEnumerator ObstacleHarm()
         {
-            _lifeManager.Lives -= 1;
+            _lifeManager.LoseLives();
             var time = _obstacleDamageTime;
 
             while (time > 0)
             {
                 StartCoroutine(SetInvulnerability());
-                _playerSprite.enabled = !_playerSprite.enabled;
-                _playerSprite.color = new Color32(0xBC, 0x3A, 0x3A, 0xFF);
+                
                 time -= Time.deltaTime;
                 yield return new WaitForSeconds(_obstacleDamageTime);
 
             }
-            _playerSprite.color = Color.white;
-            _playerSprite.enabled = true;
+           
             Debug.Log("Obstacle Harm");
         }
 

@@ -15,6 +15,9 @@ namespace CatStory
         [SerializeField]
         private GameManager _gameManager;
 
+        
+
+        [SerializeField]
         public int Lives = 9;
 
         [SerializeField]
@@ -30,7 +33,14 @@ namespace CatStory
         // Update is called once per frame
         void Update()
         {
+            if (Lives == 0)
+            {
+                Die();
 
+                Debug.Log("game over");
+
+
+            }
         }
 
         public void LoseLives()
@@ -38,13 +48,17 @@ namespace CatStory
             if (Lives > 0 && !_player.isDead)
             {
                 Lives -= 1;
+                StartCoroutine(ShowLoseLifeText());
+                Debug.Log("harm");
+
             }
 
 
-            if (Lives == 0 && _player.isDead)
+            if (Lives == 0)
             {
                 Die();
-                
+
+                Debug.Log("die");
 
 
             }
@@ -60,6 +74,7 @@ namespace CatStory
 
         public void Die()
         {
+            
             _player.isDead = true;
             StartCoroutine(Dying());
             
@@ -87,11 +102,21 @@ namespace CatStory
 
         }
 
+        private IEnumerator ShowLoseLifeText()
+        {
+            _HUD._loseLifeText.enabled = true;
+            yield return new WaitForSeconds(2f);
+            _HUD._loseLifeText.enabled = false;
+        }
+
+
+        
+
+
         private IEnumerator Dying()
         {
-            while (true && _player.isDead)
+            while (true)
             {
-                Lives = 0;
                 _player._playerAnim.SetTrigger(AnimationStrings.dead);
                 yield return new WaitForSeconds(2f);
                 _gameManager._gameOverScreen.SetActive(true);
