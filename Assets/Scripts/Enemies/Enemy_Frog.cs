@@ -26,6 +26,8 @@ namespace CatStory
         [SerializeField]
         public Rigidbody2D _frogRB;
 
+        //[SerializeField]
+        //private AudioSource _frogSound;
        
         public float frogSpeed;
 
@@ -37,6 +39,13 @@ namespace CatStory
         private void Awake()
         {
             _powerMeow = GetComponent<PowerMeowSoundWave>();
+            //_frogSound = GetComponent<AudioSource>();
+            
+        }
+
+        private void Start()
+        {
+            //_frogSound.Play();
         }
 
         public override void Update()
