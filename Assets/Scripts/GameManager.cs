@@ -79,12 +79,13 @@ namespace CatStory
         {
             Debug.Log(cinemachineCam); 
             cinemachineCam.Follow = _finishTreeMarker.transform;
-            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = -5f;
+            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 0f;
         }
 
         public void ReturnToFollowPlayer()
         {
             cinemachineCam.Follow = _player.transform;
+            cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = 2.5f;
         }
 
         public void StopCameraY()

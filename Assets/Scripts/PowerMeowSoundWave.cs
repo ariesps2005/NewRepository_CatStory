@@ -28,7 +28,7 @@ namespace CatStory
 
         private void Start()
         {
-            
+            _player = FindObjectOfType<PlayerController>();
 
 
         }
@@ -51,7 +51,7 @@ namespace CatStory
             {
 
                 _powerMeowSoundWave.velocity = transform.right * _soundWaveSpeed * Time.deltaTime;
-                              
+
                 Destroy(gameObject, 2f);
 
 
@@ -68,32 +68,32 @@ namespace CatStory
 
 
     
-        public IEnumerator PowerMeowSoundWaveShot()
-        {
-            while (true)
-            {
-                if (_player._isFacingRight)
-                {
+        //public IEnumerator PowerMeowSoundWaveShot()
+        //{
+        //    while (true)
+        //    {
+        //        if (_player._isFacingRight)
+        //        {
 
-                    _powerMeowSoundWave.velocity = transform.right * _soundWaveSpeed * Time.deltaTime;
+        //            _powerMeowSoundWave.velocity = transform.right * _soundWaveSpeed * Time.deltaTime;
 
-                    yield return new WaitForSeconds(2f);
-                    Destroy(gameObject);
+        //            yield return new WaitForSeconds(2f);
+        //            Destroy(gameObject);
 
 
-                }
+        //        }
                 
 
-                if (!_player._isFacingRight)
-                {
-                    _sprite.flipX = true;
-                    _powerMeowSoundWave.velocity = -transform.right * _soundWaveSpeed * Time.deltaTime;
-                }
-            }
+        //        if (!_player._isFacingRight)
+        //        {
+        //            _sprite.flipX = true;
+        //            _powerMeowSoundWave.velocity = -transform.right * _soundWaveSpeed * Time.deltaTime;
+        //        }
+        //    }
                 
             
 
 
-        }
+        //}
     }
 }
