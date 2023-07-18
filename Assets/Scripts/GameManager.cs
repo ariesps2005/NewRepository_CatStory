@@ -27,13 +27,15 @@ namespace CatStory
         
         public EndOfLevel_1 _endOfLevelCollider;
 
-        //public EndOfLevel_2 _endOfLevelCollider2;
+        public EndOfLevel_2 _endOfLevelCollider2;
 
         //public EndOfLevel_3 _endOfLevelCollider3;
 
         //public EndOfLevel_4 _endOfLevelCollider4;
 
         public GameObject _playerPosition_Part2;
+
+        public GameObject _playerPosition_Part3;
 
         [Header("Cinemachine")]
         [SerializeField]
@@ -49,6 +51,13 @@ namespace CatStory
 
         [SerializeField]
         public GameObject _gameOverScreen;
+
+        [SerializeField]
+        public UIController _HUD;
+
+
+        private bool isFirstDialogueOn = false;
+        private bool isOwlDialogueOn = false;
 
         //-------------------Main Functions---------------
 
@@ -99,8 +108,54 @@ namespace CatStory
             cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_DeadZoneHeight = 0f;
             cinemachineCam.GetComponentInChildren<CinemachineFramingTransposer>().m_SoftZoneHeight = 0.8f;
         }
-    
 
+        //--------Show Part Titles-----------
+
+        public void ShowPart1Title()
+        {
+            StartCoroutine(ShowPartITitle());
+        }
+
+        public void ShowPart2Title()
+        {
+            StartCoroutine(ShowPartIITitle());
+        }
+
+        public void ShowPart3Title()
+        {
+            StartCoroutine(ShowPartIIITitle());
+        }
+
+        public void ShowPart4Title()
+        {
+
+        }
+
+
+        //-----------Dialogues-------------
+
+        public void FirstDialogue()
+        {
+            if (!isFirstDialogueOn)
+            {
+                StartCoroutine(FirstDialogueCR());
+            }
+        }
+
+        public void Ability1Message()
+        {
+            StartCoroutine(PowerMeowMessage());
+        }
+
+        public void OwlDialogue1()
+        {
+            
+            if (!isOwlDialogueOn)
+            {
+                StartCoroutine(OwlToyMiceMessage());
+            }
+            
+        }
 
 
         //---------------Calling UI Screens------------------
@@ -129,7 +184,78 @@ namespace CatStory
             }
         }
 
+        //-----------------Coroutines---------------
+        //--------Part 1-----------
         
+        
+        private IEnumerator ShowPartITitle()
+        {
+            _HUD.part1.enabled = true;
+            yield return new WaitForSeconds(4f);
+            _HUD.part1.enabled = false;
+        }
+
+        private IEnumerator ShowPartIITitle()
+        {
+            _HUD.part2.enabled = true;
+            yield return new WaitForSeconds(4f);
+            _HUD.part2.enabled = false;
+        }
+
+        private IEnumerator ShowPartIIITitle()
+        {
+            _HUD.part3.enabled = true;
+            yield return new WaitForSeconds(4f);
+            _HUD.part3.enabled = false;
+        }
+
+
+
+        private IEnumerator FirstDialogueCR()
+        {
+
+            isFirstDialogueOn = true; 
+            _HUD.messageText.text = _HUD._birdMessage1;
+            yield return new WaitForSeconds(6f);
+            _HUD.messageText.text = _HUD._birdMessage2;
+            yield return new WaitForSeconds(6f);
+            _HUD.messageText.text = "";
+
+
+        }
+
+        private IEnumerator PowerMeowMessage()
+        {
+            if (isFirstDialogueOn)
+            {
+                _HUD.messageText.text = _HUD._birdMessage3;
+                yield return new WaitForSeconds(10f);
+                _HUD.messageText.text = "";
+
+            }
+
+
+
+        }
+
+        private IEnumerator OwlToyMiceMessage()
+        {
+            if (isFirstDialogueOn)
+            {
+                isOwlDialogueOn = true;
+                _HUD.messageText.text = _HUD._owlMessage1;
+                yield return new WaitForSeconds(6f);
+                _HUD.messageText.text = _HUD._owlMessage2;
+                yield return new WaitForSeconds(6f);
+                _HUD.messageText.text = _HUD._owlMessage3;
+                yield return new WaitForSeconds(6f);
+                _HUD.messageText.text = "";
+
+            }
+
+
+
+        }
 
     }
 }

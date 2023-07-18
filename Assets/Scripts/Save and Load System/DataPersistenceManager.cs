@@ -8,14 +8,23 @@ namespace CatStory
     public class DataPersistenceManager : MonoBehaviour
     {
 
+        [Header("File Storage Config")]
+        [SerializeField]
+        private string fileName;
+        
         private GameData gameData;
 
         private List<IDataPersistence> dataPersistenceObjects;
+
+        private FileDataHandler dataHandler;
+
 
         public static DataPersistenceManager instance { get; private set; }
 
         private void Awake()
         {
+
+            Debug.Log(Application.persistentDataPath);
 
             if (instance != null)
             {
@@ -25,7 +34,13 @@ namespace CatStory
             instance = this;
         }
 
-        private void Start() => this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        private void Start()
+        {
+            this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+            
+            this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+            LoadGame();
+        }
 
 
         //----------New, Load and Save functions-----------
@@ -37,7 +52,11 @@ namespace CatStory
 
         public void LoadGame()
         {
-            //to do - load gameData via FileDataHandler
+            //load gameData via FileDataHandler
+
+            this.gameData = dataHandler.Load();
+
+            //check if there is no data
 
             if (this.gameData != null)
             {
@@ -63,14 +82,16 @@ namespace CatStory
 
             foreach (IDataPersistence dataPersistenceObject in dataPersistenceObjects)
             {
-                dataPersistenceObject.SaveData(gameData);
+                dataPersistenceObject.SaveData(ref gameData);
             }
 
             Debug.Log("Saved death count = " + gameData.deathCount);
 
 
 
-            // to do - save gameData to a JSON file via FileDataHandler
+            // save gameData to a JSON file via FileDataHandler
+            dataHandler.Save(gameData);
+
         }
 
         private void OnApplicationQuit()

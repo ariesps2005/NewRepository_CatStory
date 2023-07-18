@@ -11,6 +11,8 @@ namespace CatStory
         [SerializeField]
         private InventoryController _inventory;
 
+        [SerializeField]
+        private AudioSource _pickupSound;
 
         private void Awake()
         {
@@ -30,6 +32,7 @@ namespace CatStory
                 _inventory._pickup5firefly.sprite = _inventory._revealedPickup5;
                 FindObjectOfType<FireflyManager>().AddFirefly();
                 FindObjectOfType<FireflyManager>().ShowPickup1HUD();
+                _pickupSound.Play();
 
                 Destroy(gameObject);
             }

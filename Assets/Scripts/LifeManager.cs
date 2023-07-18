@@ -15,6 +15,9 @@ namespace CatStory
         [SerializeField]
         private GameManager _gameManager;
 
+        [SerializeField]
+        private GameEventsManager _gameEventsManager;
+
         
 
         [SerializeField]
@@ -77,6 +80,7 @@ namespace CatStory
             
             _player.isDead = true;
             StartCoroutine(Dying());
+            GameEventsManager.instance.PlayerDeath();
             
         }
 
