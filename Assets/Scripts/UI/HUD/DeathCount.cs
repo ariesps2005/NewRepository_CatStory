@@ -47,7 +47,7 @@ namespace CatStory
             this.deathCount = data.deathCount;
         }
 
-        public void SaveData(ref GameData data)
+        public void SaveData(GameData data)
         {
             Debug.Log(data);
             data.deathCount = this.deathCount;

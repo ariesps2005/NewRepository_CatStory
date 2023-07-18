@@ -126,24 +126,24 @@ namespace CatStory
 
         [Header("Ability 1")]
         [SerializeField]
-        private AbilityBox_1_Meow _abilityBox_1;
+        private Ability1Meow _abilityBox_1;
         [SerializeField]
         private Animator _ability1_animator;
         [Header("Ability 2")]
         [SerializeField]
-        private AbilityBox_2_DJump _abilityBox_2;
+        private Ability2DoubleJump _abilityBox_2;
         [SerializeField]
         private Animator _ability2_animator;
-        //[Header("Ability 3")]
-        //[SerializeField]
-        //private AbilityBox_3_Block _abilityBox_3;
-        //[SerializeField]
-        //private Animator _ability3_animator;
-        //[Header("Ability 4")]
-        //[SerializeField]
-        //private AbilityBox_4_Dash _abilityBox_4;
-        //[SerializeField]
-        //private Animator _ability4_animator;
+        [Header("Ability 3")]
+        [SerializeField]
+        private Ability3JumpAttack _abilityBox_3;
+        [SerializeField]
+        private Animator _ability3_animator;
+        [Header("Ability 4")]
+        [SerializeField]
+        private Ability4Dash _abilityBox_4;
+        [SerializeField]
+        private Animator _ability4_animator;
         //[Header("Ability 5")]
         //[SerializeField]
         //private AbilityBox_5_Transform _abilityBox_5;
@@ -155,7 +155,7 @@ namespace CatStory
         public bool _hasPowerMeow = false;
         public bool _hasDoubleJump = false;
         public bool _hasJumpAttack = false;
-        //public bool _hasDash = false;
+        public bool _hasDash = false;
         //public bool _hasTransform = false;
 
 
@@ -260,10 +260,10 @@ namespace CatStory
             _savePoint = FindObjectOfType<SavePoint>();
             _obstacle = GetComponent<Obstacle>();
 
-            _abilityBox_1 = FindObjectOfType<AbilityBox_1_Meow>();
-            _abilityBox_2 = FindObjectOfType<AbilityBox_2_DJump>();
-            //_abilityBox_3 = FindObjectOfType<AbilityBox_3_JumpAttack>();
-            //_abilityBox_4 = FindObjectOfType<AbilityBox_4_Dash>();
+            _abilityBox_1 = FindObjectOfType<Ability1Meow>();
+            _abilityBox_2 = FindObjectOfType<Ability2DoubleJump>();
+            _abilityBox_3 = FindObjectOfType<Ability3JumpAttack>();
+            _abilityBox_4 = FindObjectOfType<Ability4Dash>();
             //_abilityBox_5 = FindObjectOfType<AbilityBox_5_Transform>();
         }
 
@@ -380,13 +380,13 @@ namespace CatStory
 
         public void OnDash(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && _hasDash)
             {
                 _dash.Play();
             }
             
             
-            if (context.started && canDash && !_isDashing && _lifeManager.Lives > 0)
+            if (context.started && canDash && _hasDash && !_isDashing && _lifeManager.Lives > 0)
             {
                 StartCoroutine(DashCoroutine());
             }
@@ -412,11 +412,11 @@ namespace CatStory
         {
             
 
-            if (context.performed)
+            if (context.performed && _hasPowerMeow)
             {
                 _powerMeowSound.Play();
-                _playerSprite.color = Color.blue;
-                _exampleSprite.color = Color.blue;
+                
+                
             }
             
             
@@ -549,7 +549,7 @@ namespace CatStory
 
             //--------Getting Abilities----------
             //---------Power Meow---------
-            if (collision.GetComponent<AbilityBox_1_Meow>() && _abilityBox_1 != null && !isDead)
+            if (collision.GetComponent<Ability1Meow>() && _abilityBox_1 != null && !isDead)
             {
                 _openAbilityBox.Play();
                 StartCoroutine(OpenAbilityBox_1());
@@ -563,7 +563,7 @@ namespace CatStory
             }
 
             //---------Double Jump-------- -
-            if (collision.GetComponent<AbilityBox_2_DJump>() && _abilityBox_2 != null && !isDead)
+            if (collision.GetComponent<Ability2DoubleJump>() && _abilityBox_2 != null && !isDead)
             {
                 _openAbilityBox.Play();
                 StartCoroutine(OpenAbilityBox_2());
@@ -574,23 +574,29 @@ namespace CatStory
             }
 
             //---------JumpAttack---------
-            //if (collision.GetComponent<AbilityBox_3_JAttack>() && _abilityBox_3 != null && !isDead)
-            //{
-            //   _hasJumpAttack = true;
+            if (collision.GetComponent<Ability3JumpAttack>() && _abilityBox_3 != null && !isDead)
+            {
+                _openAbilityBox.Play();
+                StartCoroutine(OpenAbilityBox_3());
 
-            //_inventory._ability3.sprite = _inventory._revealedAbility3;
-            //_inventory._ability3NameText.SetText("Jump Attack");
+                _hasJumpAttack = true;
 
-            //}
+                _inventory._ability3.sprite = _inventory._revealedAbility3;
+                _inventory._ability3NameText.SetText("Jump Attack");
+
+            }
 
             //---------Dash---------
-            //if (collision.GetComponent<AbilityBox_4_Dash>() && _abilityBox_4 != null && !isDead)
-            //{
-            //   _hasDash = true;
+            if (collision.GetComponent<Ability4Dash>() && _abilityBox_4 != null && !isDead)
+            {
+                _openAbilityBox.Play();
+                StartCoroutine(OpenAbilityBox_4());
 
-            //_inventory._ability4.sprite = _inventory._revealedAbility4;
-            //_inventory._ability4NameText.SetText("Dash Leap");
-            //}
+                _hasDash = true;
+
+                _inventory._ability4.sprite = _inventory._revealedAbility4;
+                _inventory._ability4NameText.SetText("Dash Leap");
+            }
 
             //---------Transform---------
             //if (collision.GetComponent<AbilityBox_5_Transform>() && _abilityBox_5 != null && !isDead)
@@ -693,9 +699,14 @@ namespace CatStory
                 while (time > 0 && !isDead)
                 {
                     StartCoroutine(SetInvulnerability());
+                    _playerSprite.enabled = !_playerSprite.enabled;
+                    _playerSprite.color = Color.red;
                     time -= Time.deltaTime;
                     yield return new WaitForSeconds(0.1f);
+
                 }
+                _playerSprite.enabled = true;
+                _playerSprite.color = Color.white;
                 
             }
 
@@ -715,13 +726,16 @@ namespace CatStory
                 {
 
                     StartCoroutine(SetInvulnerability());
-                    
+                    _playerSprite.enabled = !_playerSprite.enabled;
+                    _playerSprite.color = Color.green;
                     time -= Time.deltaTime;
                     yield return new WaitForSeconds(0.1f);
 
                 }
+                _playerSprite.enabled = true;
+                _playerSprite.color = Color.white;
 
-               
+
                 Debug.Log("Poisoning");
 
             }
@@ -738,12 +752,15 @@ namespace CatStory
             while (time > 0)
             {
                 StartCoroutine(SetInvulnerability());
-                
+                _playerSprite.enabled = !_playerSprite.enabled;
+                _playerSprite.color = Color.red;
                 time -= Time.deltaTime;
                 yield return new WaitForSeconds(_obstacleDamageTime);
 
             }
-           
+            _playerSprite.enabled = true;
+            _playerSprite.color = Color.white;
+
             Debug.Log("Obstacle Harm");
         }
 
@@ -785,29 +802,31 @@ namespace CatStory
             }
         }
 
-        //public IEnumerator OpenAbilityBox_3()
-        //{
-        //    while (true)
-        //    {
-        //        _ability3_animator.SetTrigger("opened");
-        //        yield return new WaitForSeconds(2f);
-        //        _abilityBox_3.gameObject.SetActive(false);
+        public IEnumerator OpenAbilityBox_3()
+        {
+            while (true)
+            {
+                _ability3_animator.SetTrigger("opened");
+                yield return new WaitForSeconds(30f);
+                _abilityBox_3.gameObject.SetActive(false);
 
 
-        //    }
-        //}
+            }
+        }
 
-        //public IEnumerator OpenAbilityBox_4()
-        //{
-        //    while (true)
-        //    {
-        //        _ability4_animator.SetTrigger("opened");
-        //        yield return new WaitForSeconds(2f);
-        //        _abilityBox_4.gameObject.SetActive(false);
+        public IEnumerator OpenAbilityBox_4()
+        {
+            while (true)
+            {
+                _ability4_animator.SetTrigger("opened");
+                yield return new WaitForSeconds(30f);
+                _abilityBox_4.gameObject.SetActive(false);
 
 
-        //    }
-        //}
+            }
+        }
+
+
         //public IEnumerator OpenAbilityBox_5()
         //{
         //    while (true)

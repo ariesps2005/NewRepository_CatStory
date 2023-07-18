@@ -82,7 +82,7 @@ namespace CatStory
 
             foreach (IDataPersistence dataPersistenceObject in dataPersistenceObjects)
             {
-                dataPersistenceObject.SaveData(ref gameData);
+                dataPersistenceObject.SaveData(gameData);
             }
 
             Debug.Log("Saved death count = " + gameData.deathCount);

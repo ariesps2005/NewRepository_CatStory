@@ -46,32 +46,32 @@ namespace CatStory
 
         public TMP_Text _ability2NameText;
 
-        ////----Block--------------------------------------
-        //[Header("Ability 3")]
-        //[SerializeField]
-        //public Image _ability3;
+        ////----Jump Attack--------------------------------------
+        [Header("Ability 3")]
+        [SerializeField]
+        public Image _ability3;
 
-        //[SerializeField]
-        //public Sprite _hiddenAbility3;
+        [SerializeField]
+        public Sprite _hiddenAbility3;
 
-        //[SerializeField]
-        //public Sprite _revealedAbility3;
+        [SerializeField]
+        public Sprite _revealedAbility3;
 
-        //public TMP_Text _ability3NameText;
+        public TMP_Text _ability3NameText;
 
         ////----Dash----------------------------------------
 
-        //[Header("Ability 4")]
-        //[SerializeField]
-        //public Image _ability4;
+        [Header("Ability 4")]
+        [SerializeField]
+        public Image _ability4;
 
-        //[SerializeField]
-        //public Sprite _hiddenAbility4;
+        [SerializeField]
+        public Sprite _hiddenAbility4;
 
-        //[SerializeField]
-        //public Sprite _revealedAbility4;
+        [SerializeField]
+        public Sprite _revealedAbility4;
 
-        //public TMP_Text _ability4NameText;
+        public TMP_Text _ability4NameText;
 
         ////----Transform------
 

@@ -57,7 +57,7 @@ namespace CatStory
             }
 
 
-            if (Lives == 0)
+            if (Lives <= 0)
             {
                 Die();
 
@@ -122,10 +122,12 @@ namespace CatStory
             while (true)
             {
                 _player._playerAnim.SetTrigger(AnimationStrings.dead);
+                _player._playerSprite.enabled = !_player._playerSprite.enabled;
                 yield return new WaitForSeconds(2f);
                 _gameManager._gameOverScreen.SetActive(true);
                 Time.timeScale = 0;
             }
+
             
         }
     }
