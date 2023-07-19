@@ -81,6 +81,10 @@ namespace CatStory
         [SerializeField]
         public TMP_Text messageText;
 
+        [SerializeField]
+        public GameObject textPanel;
+
+
         [Space, SerializeField]
         [TextArea]
         public string _birdMessage1;

@@ -214,12 +214,14 @@ namespace CatStory
         private IEnumerator FirstDialogueCR()
         {
 
-            isFirstDialogueOn = true; 
+            isFirstDialogueOn = true;
+            _HUD.textPanel.SetActive(true);
             _HUD.messageText.text = _HUD._birdMessage1;
             yield return new WaitForSeconds(6f);
             _HUD.messageText.text = _HUD._birdMessage2;
             yield return new WaitForSeconds(6f);
             _HUD.messageText.text = "";
+            _HUD.textPanel.SetActive(false);
 
 
         }
@@ -228,9 +230,11 @@ namespace CatStory
         {
             if (isFirstDialogueOn)
             {
+                _HUD.textPanel.SetActive(true);
                 _HUD.messageText.text = _HUD._birdMessage3;
                 yield return new WaitForSeconds(10f);
                 _HUD.messageText.text = "";
+                _HUD.textPanel.SetActive(false);
 
             }
 
@@ -242,6 +246,7 @@ namespace CatStory
         {
             if (isFirstDialogueOn)
             {
+                _HUD.textPanel.SetActive(true);
                 isOwlDialogueOn = true;
                 _HUD.messageText.text = _HUD._owlMessage1;
                 yield return new WaitForSeconds(6f);
@@ -250,6 +255,7 @@ namespace CatStory
                 _HUD.messageText.text = _HUD._owlMessage3;
                 yield return new WaitForSeconds(6f);
                 _HUD.messageText.text = "";
+                _HUD.textPanel.SetActive(false);
 
             }
 

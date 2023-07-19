@@ -205,11 +205,11 @@ namespace CatStory
         //------------Main------------
         public void UpdatePickupText()
         {
-            Debug.Log(_frankfurterManager);
-            Debug.Log(_frankfurterText);
-            Debug.Log(_frankfurterNameText);
+            Debug.Log(_chickenManager);
+            Debug.Log(_chickenText);
+            Debug.Log(_chickenNameText);
             Debug.Log(_player);
-            Debug.Log(_player._pickup1);
+            Debug.Log(_player._pickup2);
 
 
             

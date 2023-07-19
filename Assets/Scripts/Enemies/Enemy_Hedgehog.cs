@@ -27,7 +27,7 @@ namespace CatStory
         private float _amplitude;
 
         [SerializeField]
-        private BoxCollider2D _hedgehogCol;
+        private CapsuleCollider2D _hedgehogCol;
 
         [SerializeField]
         private Rigidbody2D _hedgehogRB;
