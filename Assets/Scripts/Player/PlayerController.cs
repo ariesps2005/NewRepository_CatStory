@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO.IsolatedStorage;
-using System.Runtime.CompilerServices;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -74,6 +72,20 @@ namespace CatStory
         [SerializeField]
         private AudioSource _dash;
 
+        [Header("SuperCat")]
+
+        public bool canTransform = true;
+        [SerializeField]
+        private float superCatTime = 3f;
+        [SerializeField]
+        private float superCatCooldown = 5f;
+        [SerializeField]
+        private float superCatMultiplier = 1.5f;
+        [SerializeField]
+        private Animator _superCatAbilityAnimator;
+        [SerializeField]
+        private Image _superCatPic;
+
         [Header("Life and Save")]
         [Space, SerializeField]
         private LifeManager _lifeManager;
@@ -110,6 +122,7 @@ namespace CatStory
         private bool _isDashing = false;
         public bool _isFacingRight = true;
         public bool _isGrounded = true;
+        public bool _isSuperCat = false;
 
         public bool isInvulnerable;
         public bool isDead = false;
@@ -156,7 +169,7 @@ namespace CatStory
         public bool _hasDoubleJump = false;
         public bool _hasJumpAttack = false;
         public bool _hasDash = false;
-        //public bool _hasTransform = false;
+        public bool _hasTransformation = false;
 
 
         //-------------Pickup Managers-------
@@ -169,8 +182,8 @@ namespace CatStory
         private CheeseManager _cheeseManager;
         [SerializeField]
         private BeetleManager _beetleManager;
-        //[SerializeField]
-        //private FireflyManager _fireflyManager;
+        [SerializeField]
+        private FireflyManager _fireflyManager;
 
 
         //-------------Public Pickup Bools------------
@@ -187,7 +200,7 @@ namespace CatStory
         public bool _chickenAbilityIsReady;
         public bool _cheeseAbilityIsReady;
         public bool _beetleAbilityIsReady;
-        //public bool _fireflyAbilityIsReady;
+        public bool _fireflyAbilityIsReady;
 
         //-------------Movement Bool Properties------------
         public bool IsMoving
@@ -373,10 +386,19 @@ namespace CatStory
         }
 
 
-        public void OnBlock()//to do
+        public void OnTransformation(InputAction.CallbackContext context)
         {
-
+            if (context.performed && _hasTransformation && canTransform && !_isSuperCat && _lifeManager.Lives > 0)
+            {
+                _superCatPic.enabled = true;
+                _playerAnim.SetBool(AnimationStrings.superCat, true);
+                _isSuperCat = true;
+                StartCoroutine(SuperCat());
+            }
+            SetFacingDirection(moveInput);
         }
+
+
 
         public void OnDash(InputAction.CallbackContext context)
         {
@@ -437,10 +459,7 @@ namespace CatStory
 
         }
 
-        public void OnTransformation()//to do
-        {
-
-        }
+       
 
 
         //-------------On Interaction Functions-------------
@@ -681,6 +700,34 @@ namespace CatStory
          
             
 
+
+        }
+
+        //---------SuperCat Coroutine---------
+
+        private IEnumerator SuperCat()
+        {
+            _superCatAbilityAnimator.SetTrigger("active");
+            canTransform = false;
+            _hasTransformation = true;
+            _isSuperCat = true;
+            StartCoroutine(SetInvulnerability());
+            this.transform.localScale 
+                = new Vector2
+                (this.transform.localScale.x * superCatMultiplier, this.transform.localScale.y * superCatMultiplier);
+
+            yield return new WaitForSeconds(superCatTime);
+            _superCatAbilityAnimator.SetTrigger("inactive");
+            _isSuperCat = false;
+            this.transform.localScale
+               = new Vector2(0.75f, 0.75f);
+            _playerAnim.SetBool(AnimationStrings.superCat, false);
+
+            yield return new WaitForSeconds(superCatCooldown);
+
+            _superCatAbilityAnimator.SetTrigger("active");
+            canTransform = true;
+           
 
         }
 

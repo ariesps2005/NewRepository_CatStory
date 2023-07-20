@@ -13,5 +13,6 @@ namespace CatStory
         internal static string meowAttack = "meowAttack";
         internal static string isOnTheCeiling = "isOnTheCeiling";
         internal static string dead = "dead";
+        internal static string superCat = "superCat";
     }
 }
