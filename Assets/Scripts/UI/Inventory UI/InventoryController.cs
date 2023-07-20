@@ -205,14 +205,12 @@ namespace CatStory
         //------------Main------------
         public void UpdatePickupText()
         {
-            Debug.Log(_chickenManager);
-            Debug.Log(_chickenText);
-            Debug.Log(_chickenNameText);
-            Debug.Log(_player);
-            Debug.Log(_player._pickup2);
-
-
             
+
+            Debug.Log(_beetlesManager);
+            
+
+
             _frankfurterText.text = _frankfurterManager.Frankfurters.ToString();
             _chickenText.text = _chickenManager.ChickenLegs.ToString();
             _cheeseText.text = _cheeseManager.Cheese.ToString();
