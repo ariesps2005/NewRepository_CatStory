@@ -77,36 +77,55 @@ namespace CatStory
 
         public virtual void OnTriggerEnter2D(Collider2D collision) // damage when colliding
         {
-            //if (collision.GetComponent<PlayerController>() && !isPlayerInvulnerable && !_player.isDead)
-            //{
-            //    FindObjectOfType<LifeManager>().LoseLives();
-
-            //    StartCoroutine(DamagePlayer());
-
-            //    StartCoroutine(StopBlinkingPlayerSprite());
-            //}
+           
 
             if (collision.GetComponent<PowerMeowSoundWave>() != null) //damage if shot with PowerMeow
             {
                 
-                if (enemyLives > 0)
+                if (!_player._isSuperCat)
                 {
-                    enemyLives -= 1;
-                    StartCoroutine(DamageEnemy());
+                    if (enemyLives > 0)
+                    {
+                        enemyLives -= 1;
+                        StartCoroutine(DamageEnemy());
 
-                    Debug.Log("Enemy is hit");
-                    Debug.Log(isAttacking);
-                    Debug.Log(isFacingRight);
+                        Debug.Log("Enemy is hit");
+                        Debug.Log(isAttacking);
+                        Debug.Log(isFacingRight);
+                    }
+
+
+                    if (enemyLives == 0)
+                    {
+                        Debug.Log("Enemy is dead");
+                        Debug.Log(isAttacking);
+                        Debug.Log(isFacingRight);
+
+                    }
                 }
-                
-                
-                if (enemyLives == 0)
+
+                if (_player._isSuperCat)
                 {
-                    Debug.Log("Enemy is dead");
-                    Debug.Log(isAttacking);
-                    Debug.Log(isFacingRight);
-                    
+                    if (enemyLives > 0)
+                    {
+                        enemyLives -= 2;
+                        StartCoroutine(DamageEnemy());
+
+                        Debug.Log("Enemy is hit");
+                        Debug.Log(isAttacking);
+                        Debug.Log(isFacingRight);
+                    }
+
+
+                    if (enemyLives == 0)
+                    {
+                        Debug.Log("Enemy is dead");
+                        Debug.Log(isAttacking);
+                        Debug.Log(isFacingRight);
+
+                    }
                 }
+               
                 
             }
 

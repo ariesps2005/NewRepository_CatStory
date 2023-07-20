@@ -707,26 +707,41 @@ namespace CatStory
 
         private IEnumerator SuperCat()
         {
-            _superCatAbilityAnimator.SetTrigger("active");
-            canTransform = false;
-            _hasTransformation = true;
-            _isSuperCat = true;
-            StartCoroutine(SetInvulnerability());
-            this.transform.localScale 
-                = new Vector2
-                (this.transform.localScale.x * superCatMultiplier, this.transform.localScale.y * superCatMultiplier);
 
-            yield return new WaitForSeconds(superCatTime);
-            _superCatAbilityAnimator.SetTrigger("inactive");
-            _isSuperCat = false;
-            this.transform.localScale
-               = new Vector2(0.75f, 0.75f);
-            _playerAnim.SetBool(AnimationStrings.superCat, false);
+            
+            
+                _superCatAbilityAnimator.SetTrigger("active");
+                canTransform = false;
+                _hasTransformation = true;
+                _isSuperCat = true;
+                this.transform.localScale
+                    = new Vector2
+                    (this.transform.localScale.x * superCatMultiplier, this.transform.localScale.y * superCatMultiplier);
 
-            yield return new WaitForSeconds(superCatCooldown);
+                yield return new WaitForSeconds(superCatTime);
+                _superCatAbilityAnimator.SetTrigger("inactive");
+                _isSuperCat = false;
 
-            _superCatAbilityAnimator.SetTrigger("active");
-            canTransform = true;
+
+            if (_isFacingRight)
+            {
+                this.transform.localScale
+                       = new Vector2(0.75f, 0.75f);
+                _playerAnim.SetBool(AnimationStrings.superCat, false);
+            }
+            else
+            {
+                this.transform.localScale
+                       = new Vector2(-0.75f, 0.75f);
+                _playerAnim.SetBool(AnimationStrings.superCat, false);
+            }
+
+                yield return new WaitForSeconds(superCatCooldown);
+
+                _superCatAbilityAnimator.SetTrigger("active");
+                canTransform = true;
+            
+            
            
 
         }
@@ -740,8 +755,7 @@ namespace CatStory
         {
             if (!isDead)
             {
-                _lifeManager.LoseLives();
-
+                
                 var time = _damageTime;
                 while (time > 0 && !isDead)
                 {

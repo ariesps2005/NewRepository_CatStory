@@ -36,16 +36,18 @@ namespace CatStory
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            
+            if (!_player._isSuperCat)
                 Destroy(gameObject);
 
+            if (_player._isSuperCat)
+                Destroy(gameObject);
         }
 
 
 
         void Update()
         {
-            //StartCoroutine(PowerMeowSoundWaveShot());
+            
 
             if (_player._isFacingRight)
             {
@@ -68,32 +70,6 @@ namespace CatStory
 
 
     
-        //public IEnumerator PowerMeowSoundWaveShot()
-        //{
-        //    while (true)
-        //    {
-        //        if (_player._isFacingRight)
-        //        {
-
-        //            _powerMeowSoundWave.velocity = transform.right * _soundWaveSpeed * Time.deltaTime;
-
-        //            yield return new WaitForSeconds(2f);
-        //            Destroy(gameObject);
-
-
-        //        }
-                
-
-        //        if (!_player._isFacingRight)
-        //        {
-        //            _sprite.flipX = true;
-        //            _powerMeowSoundWave.velocity = -transform.right * _soundWaveSpeed * Time.deltaTime;
-        //        }
-        //    }
-                
-            
-
-
-        //}
+        
     }
 }

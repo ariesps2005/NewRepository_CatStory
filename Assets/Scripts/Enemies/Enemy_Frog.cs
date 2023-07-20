@@ -104,7 +104,17 @@ namespace CatStory
             {
                 _frogAnim.SetTrigger("dead");
                 Destroy(gameObject, 0.5f);
-                FindObjectOfType<LifeManager>().Lives -= 2;
+
+                if (!_player._isSuperCat)
+                {
+                    FindObjectOfType<LifeManager>().Lives -= 3;
+
+                }
+                if (_player._isSuperCat)
+                {
+                    FindObjectOfType<LifeManager>().Lives -= 1;
+                }
+                
 
                 StartCoroutine(DamagePlayer());
             }
@@ -112,23 +122,48 @@ namespace CatStory
             if (collision.GetComponent<PowerMeowSoundWave>() && _powerMeow != null && !isPlayerInvulnerable && !_player.isDead)
             {
 
-                Debug.Log("PowerMeow Shot");
-                if (enemyLives > 0)
+                if (!_player._isSuperCat)
                 {
-                    enemyLives -= 1;
-                    StartCoroutine(DamageEnemy());
+                    Debug.Log("PowerMeow Shot");
 
-                    Debug.Log("Enemy is hit");
-                    
+                    if (enemyLives > 0)
+                    {
+
+                        StartCoroutine(DamageEnemy());
+
+                        Debug.Log("Enemy is hit");
+
+                    }
+
+                    if (enemyLives == 0)
+                    {
+                        Debug.Log("Enemy is dead");
+
+
+                    }
                 }
 
-
-                if (enemyLives == 0)
+                if (_player._isSuperCat)
                 {
-                    Debug.Log("Enemy is dead");
-                    
+                    Debug.Log("PowerMeow Shot");
 
+                    if (enemyLives > 0)
+                    {
+
+                        StartCoroutine(DamageEnemy());
+
+                        Debug.Log("Enemy is hit");
+
+                    }
+
+                    if (enemyLives == 0)
+                    {
+                        Debug.Log("Enemy is dead");
+
+
+                    }
                 }
+
             }
         }
 
