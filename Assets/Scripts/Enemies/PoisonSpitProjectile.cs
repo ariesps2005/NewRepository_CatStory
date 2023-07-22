@@ -12,13 +12,14 @@ namespace CatStory
         [SerializeField]
         private Rigidbody2D _spitRB;
 
+        private Enemy_Snake _snake;
         
 
         public float Force;
 
         private void Awake()
         {
-            
+            _snake = FindObjectOfType<Enemy_Snake>();
             
         }
 
@@ -30,16 +31,16 @@ namespace CatStory
             _spitRB = GetComponent<Rigidbody2D>();
             _player = GameObject.FindGameObjectWithTag("Player");
 
-            if (_player.transform.position.x < this.transform.position.x)//player is left to snake
+            if (_player.transform.position.x < _snake.transform.position.x)//player is left to snake
             {
                 Vector3 direction = _player.transform.position - transform.position;
                 _spitRB.velocity = new Vector2(direction.x, direction.y).normalized * Force;
             }
 
-            if (_player.transform.position.x > this.transform.position.x)//player is right to snake
+            if (_player.transform.position.x > _snake.transform.position.x)//player is right to snake
             {
                 Vector3 direction = _player.transform.position - transform.position;
-                _spitRB.velocity = new Vector2(direction.x, direction.y).normalized * Force;
+                _spitRB.velocity = new Vector2(-direction.x, direction.y).normalized * Force;
             }
 
         }

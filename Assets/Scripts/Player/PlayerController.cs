@@ -35,8 +35,7 @@ namespace CatStory
         [SerializeField]
         public SpriteRenderer _playerSprite;
 
-        [SerializeField]
-        public SpriteRenderer _exampleSprite;
+       
 
 
         [Header("Jump")]
@@ -313,6 +312,16 @@ namespace CatStory
 
             _playerRB.velocity
                 = new Vector2(moveInput.x * _playerSpeed * Time.fixedDeltaTime, _playerRB.velocity.y);
+        }
+
+        //----------CheatLife+1-------
+
+        public void OnCheatLife(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _lifeManager.Lives += 1;
+            }
         }
 
         //----------Movement Functions---------------

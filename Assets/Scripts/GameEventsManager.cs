@@ -12,6 +12,8 @@ namespace CatStory
         [SerializeField]
         private LifeManager _lifeManager;
 
+
+        private int _deathCounter;
         public static GameEventsManager instance { get; private set; }
 
         private void Awake()
@@ -24,7 +26,13 @@ namespace CatStory
 
         public void PlayerDeath()
         {
-            if (onPlayerDeath != null) { onPlayerDeath(); }
+            if (_deathCounter > 0) return;
+
+            if (onPlayerDeath != null) 
+            {
+                _deathCounter++;
+                onPlayerDeath(); 
+            }
         }
 
         

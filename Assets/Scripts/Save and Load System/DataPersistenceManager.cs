@@ -58,7 +58,7 @@ namespace CatStory
 
             //check if there is no data
 
-            if (this.gameData != null)
+            if (this.gameData == null)
             {
                 Debug.Log("No data to load");
                 NewGame();//temporarily

@@ -121,54 +121,27 @@ namespace CatStory
                     }
                 }
 
-                //--------Raycasts----------
-
-                //RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.localScale.x * Vector2.right, rayDistance);
-                //if (hit.collider != null && IsFacingRight)
-                //{
-                //    IsFacingRight = true;
-                //    IsAttacking = true;
-                //    _hedgehogAnim.SetTrigger("attack");
-                   
-                //}
-                //else if (IsFacingRight)
-                //{
-                //    IsAttacking = false;
-                //    IsFacingRight = true;
-                //    _hedgehogAnim.SetTrigger("idle");
-
-                //}
-                //else if (enemyLives <= 0)
-                //{
-                //    _hedgehogAnim.SetTrigger("dead");
-                //}
-
-                //RaycastHit2D lefthit = Physics2D.Raycast(transform.position, transform.localScale.x
-                //    * Vector2.left, rayDistance);
-                //if (lefthit.collider != null && !IsFacingRight)
-                //{
-                //    IsFacingRight = false;
-                //    IsAttacking = true;
-                //    _hedgehogAnim.SetTrigger("attack");
-                    
-                //}
-                //else if (!IsFacingRight)
-                //{
-                //    IsAttacking = false;
-                //    IsFacingRight = false;
-                //    _hedgehogAnim.SetTrigger("idle");
-
-                //}
-                //else if (enemyLives <= 0)
-                //{
-                //    _hedgehogAnim.SetTrigger("dead");
-                //}
+               
 
 
 
 
             }
         }
+
+        public override void OnTriggerEnter2D(Collider2D collision)
+        {
+            base.OnTriggerEnter2D(collision);
+
+            if (collision.GetComponent<PlayerController>() && !_player.isDead && !_player.isInvulnerable) 
+            {
+                if (!_player._isSuperCat)
+                {
+                    FindObjectOfType<LifeManager>().Lives -= 1;
+
+                }
+            }
+        } 
 
         public void SetFacing()
         {
