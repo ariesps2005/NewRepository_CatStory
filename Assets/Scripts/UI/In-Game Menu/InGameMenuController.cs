@@ -56,7 +56,7 @@ namespace CatStory
 
         public void OnQuit()
         {
-            EditorApplication.isPlaying = false;
+            Application.Quit();
         }
     }
 }

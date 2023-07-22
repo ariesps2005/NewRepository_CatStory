@@ -51,7 +51,7 @@ namespace CatStory
 
         public void QuitGame()
         {
-            EditorApplication.isPlaying = false;
+            Application.Quit();
         }
 
   

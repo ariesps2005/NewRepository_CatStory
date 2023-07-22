@@ -29,12 +29,12 @@ namespace CatStory
 
         public void BackToMenu()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(0);
         }
 
         public void BackToGame()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
 
         public void OnButton()
