@@ -31,12 +31,12 @@ namespace CatStory
         //---------------Button Functions----------
         public void ToMainmenu()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(0);
         }
 
         public void StartLevel()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
 
         public void OnResume()
